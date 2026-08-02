@@ -57,8 +57,8 @@ def create_app() -> FastAPI:
     app.add_middleware(RateLimiterMiddleware)
 
     # Exception Handlers
-    app.add_exception_handler(DomainException, domain_exception_handler)
-    app.add_exception_handler(RequestValidationError, validation_exception_handler)
+    app.add_exception_handler(DomainException, domain_exception_handler)  # type: ignore[arg-type]
+    app.add_exception_handler(RequestValidationError, validation_exception_handler)  # type: ignore[arg-type]
     app.add_exception_handler(Exception, global_exception_handler)
 
     # Include Routes

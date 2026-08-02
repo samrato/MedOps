@@ -1,6 +1,8 @@
 import logging
 import sys
+from collections.abc import MutableMapping
 from contextvars import ContextVar
+from typing import Any
 
 import structlog
 
@@ -9,7 +11,7 @@ correlation_id_var: ContextVar[str] = ContextVar("correlation_id", default="N/A"
 request_id_var: ContextVar[str] = ContextVar("request_id", default="N/A")
 
 
-def add_correlation_data(logger: logging.Logger, method_name: str, event_dict: dict) -> dict:
+def add_correlation_data(logger: Any, method_name: str, event_dict: MutableMapping[str, Any]) -> MutableMapping[str, Any]:
     event_dict["correlation_id"] = correlation_id_var.get()
     event_dict["request_id"] = request_id_var.get()
     return event_dict
